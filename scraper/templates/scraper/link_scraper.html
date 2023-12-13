@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Link Scraper Tool | Palashtd{% endblock title %}
+{% block body %}
+<div class="container mt-5">
+   <div class="row justify-content-center">
+      <div class="col-md-8 text-center">
+         <a href="{% url "scraper" %}"><h1 class="fw-bold">Link Collector Tool</h1></a>
+         <span>👉 Collect links from specific URL source</span><br>
+         <a href="{% url "scraper" %}">Back to Home & Search New</a>
+      </div>
+      <!-- show message -->
+      {% if error_message %}
+      <p class="alert alert-danger text-center mt-3">{{ error_message }}</p>
+      {% endif %}
+   </div>
+   <div class="row justify-content-center">
+      <div class="col-md-8 mt-5">
+         <!-- Form start -->
+         <form action="" method="POST">
+            {% csrf_token %}
+            <input type="text" class="form-control" name="site" id="site" placeholder="Enter site url">
+            <div class="d-flex justify-content-center mt-3 mb-3">
+               <button class="btn btn-success" type="submit">Collect Links</button>
+               <a class="btn btn-danger ms-3" href="/delete">Delete</a>
+            </div>
+         </form>
+         <!-- Ad banner -->
+            <div class="text-center" style="margin-bottom:-20px; font-size:12px">
+               <i class="text-muted">Advertisement</i>
+            </div>
+            <div class="d-flex justify-content-center align-items-center m-4">
+                {% for banner in sc_banner %}
+                <a href="https://1.envato.market/c/2041896/522997/4415" target="_blank" rel="nofollow noindex">
+                    <img class="img-thumbnail" src="{{ banner.image.url }}" alt="Banner Image">
+                </a>
+                {% endfor %}
+            </div>
+      </div>
+   </div>
+</div>
+<!-- Show link count -->
+<div class="row justify-content-center">
+   <div class="col-md-8">
+      <div class="shadow p-5">
+         <div class="d-flex justify-content-center">
+            <h3>Total Links: {{ data|length }}</h3>
+         </div>
+         <!-- Start Links data table -->
+         <table class="table">
+            <thead>
+               <tr>
+                  <th scope="col-2">NO.</th>
+                  <th scope="col-2">Ancor Text</th>
+                  <th scope="col-4" class="fixed-col-3">Link(URL)</th>
+               </tr>
+            </thead>
+            <tbody>
+               {% for link in data %}
+               <tr>
+                  <th class="col-1">{{forloop.counter}}</th>
+                  <td class="col-2">{{link.name}}</td>
+                  <td class="col-4">{{link.address}}</td>
+               </tr>
+               {% endfor %}
+            </tbody>
+         </table>
+      </div>
+      <!-- Start paragraph for article -->
+      <div class="col-xl p-5">
+         <h2 class="text-center mb-4 text-primary">Maximizing SEO Potential with the Link Collector Tool: The Importance of Proper Anchor Text</h2>
+         <p>In the digital era, where every click and keyword can sway your website’s search engine rankings, having the right tools in your SEO arsenal is crucial. So a Link Collector Tool is a game-changer for webmasters and SEO strategists alike.
+
+         What makes the Link Collector Tool invaluable for your website? This tool specializes in gathering URLs with corresponding anchor text from specific domains or URLs. In the SEO realm, anchor text—the visible, clickable words used to link one webpage to another—is not just a means of navigation; it’s a powerful factor in establishing the relevance and authority of your site.<br><br>
+
+         Properly optimized anchor text provides clear context and tells search engines what the linked page is about, bolstering its relevancy for specific keywords. The Link Collector Tool enables you to review and refine your strategy, ensuring that the anchor texts across your site or a particular domain are helping, not hindering, your SEO goals.<br><br>
+         <i><b>Here’s why paying attention to anchor text is essential and how the Link Collector Tool facilitates this process:</b></i><br><br>
+         <i><b>(1) Relevance and Context:</b></i><br>
+         <p>Search engines like Google prioritize user experience, which includes providing search results that are relevant. Anchor text gives a clear indication of the content on the linked page, helping search engines determine its relevance to search queries. With the Link Collector Tool, it becomes effortless to analyze and compile anchor texts, ensuring they align with top-performing keywords and the content strategy of your website.</p>
+         <i><b>(2) Avoiding Over-Optimization:</b></i><br>
+         <p>While keyword-rich anchor text can improve page rankings for those terms, over-optimization—using too many similar phrases—can trigger search engine penalties. The Link Collector Tool assists in identifying and diversifying anchor text to prevent such drawbacks and maintain a natural link profile.</p>
+         <i><b>(3) Identifying and Repairing Broken Links:</b></i><br>
+         <p>The tool isn’t just about optimizing; it's about maintaining. Links inevitably become broken over time due to removed pages or site restructuring. The Link Collector Tool helps you pinpoint these issues, ensuring that every link on your site continues to contribute positively to your overall SEO.</p>
+         <i><b>(4) Competitive Analysis:</b></i><br>
+         <p>Understanding your competition is crucial to SEO success. With the Link Collector Tool, you can examine the anchor text strategies of competing websites, gathering insights and identifying opportunities for your own link-building efforts.</p><br>
+         <p>In brief, the Link Collector Tool helps maintain the integrity and effectiveness of your anchor text, an often-overlooked but integral component of SEO. Using this tool ensures that the links on your site work harmoniously to boost rankings, enhance user navigation, and convey to search engines the high-quality, relevant content your site offers. It’s not just collecting links; it’s curating a pathway to better visibility and search engine trust.</p>
+      </p>
+      </div>
+   </div>
+</div>
+{% endblock body %}

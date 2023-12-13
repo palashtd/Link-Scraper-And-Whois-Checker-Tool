@@ -1,0 +1,119 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Whois Tool | Palashtd{% endblock title %}
+{% block body %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8 text-center rounded">
+            <!-- Show messages -->
+            {% for message in messages %}
+            <div class="text-center">
+                <span class="alert {{ message.tags }} alert-dismissible" role="alert" >
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                {{ message }}
+                </span>
+            </div>
+            {% endfor %}
+            <!-- Tool heading -->
+            <a href="{% url "domain_info" %}"><h1 class="fw-bold mt-3">Whois Checker Tool</h1></a>
+            <span>See your site whois data more details</span><br>
+         </div>
+         <!-- Start form -->
+        <div class="col-xl-8 mx-auto text-center">
+            <form action="{% url 'domain_info' %}" method="POST" class="text-center mb-3">
+                {% csrf_token %}
+                <label for="forurl" class="form-label">👉Enter site URL (ex: domain.com or https://domain.com</label>
+                <input type="text" class="form-control" name="domain_name" id="domain_name">
+                <button class="btn btn-primary mt-4" type="submit">Get Whois Data</button>
+            </form>
+        </div>
+    </div>
+    <!-- Ad banner -->
+    {% if whois.whois_data %}
+        <div class="text-center" style="margin-bottom:-20px; font-size:12px">
+            <i class="text-muted">Advertisement</i>
+        </div>
+        <div class="d-flex justify-content-center align-items-center m-4">
+            <a href="https://namecheap.pxf.io/c/2041896/1130495/5618" target="_blank" rel="nofollow noindex">
+                <img class="img-thumbnail" src="{{ ws_banner.image.url }}" alt="NameCheap Cheap Domain">
+            </a>
+        </div>
+        {% else %}
+        <div class="text-center" style="margin-bottom:-20px; font-size:12px">
+            <i class="text-muted">Advertisement</i>
+        </div>
+        <div class="d-flex justify-content-center align-items-center m-4">
+            <a href="https://nexcess.pxf.io/c/2041896/998947/12206" target="_blank" rel="nofollow noindex">
+                <img src="//a.impactradius-go.com/display-ad/12206-998947" border="0" alt="Nexcess Store Builder" width="728" height="90"/>
+            </a>
+        </div>
+        {% endif %}
+        <!-- Display whois data -->
+    <div class="row justify-content-center">
+        <div class="col-xl-8 p-5 rounded">
+            <div class="card bg-light p-4">
+                {% if whois.whois_data %}
+                <h3 class="text-center">Registrar Information</h3>
+                <table class="table table-striped">
+                    <tbody>
+                        <tr>
+                            <td><b>Registrant Name:</b></td>
+                            <td>{{ registrant_name }}</td>
+                        </tr>
+                        <tr>
+                            <td><b>Created on:</b></td>
+                            <td>{{ creation_date }}</td>
+                        </tr>
+                        <tr>
+                            <td><b>Updated on:</b></td>
+                            <td>{{ updated_date }}</td>
+                        </tr>
+                        <tr>
+                            <td><b>Expired on:</b></td>
+                            <td>{{ expiry_date }}</td>
+                        </tr>
+                        <tr>
+                            <td><b>Name Servers:</b></td>
+                            <td>
+                                {% for name_server in name_servers %}
+                                {{ name_server }}
+                                {% if not forloop.last %}
+                                {% endif %}
+                              {% endfor %}
+                            </td>
+                        </tr>
+
+                    </tbody>
+                </table>
+                {% endif %}
+                <h3 class="text-center">Details Whois Information</h3>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col">Data</th>
+                            <th scope="col">Information</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for key, value in whois.whois_data.items %}
+                        <tr>
+                            <td> <span class="fs-5">{{ key|title }}</span>:</td>
+                            <td>{{ value }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <!-- Paragraph text -->
+            <h2 class="text-center m-4 text-primary">Unlock the Secrets to Domain Ownership with the Whois Checker Tool</h2>
+            <p>In the digital world, understanding the ownership and administrative details of a domain is paramount for various stakeholders, from business owners to cybersecurity experts. The Whois Checker tool is the key to unlocking this maze of information. Let's share the incredible benefits of using the Whois Checker tool and why checking domain Whois data is essential.<br><br>
+                First off, Whois data acts as the digital world's phonebook. It's where domain ownership details, including the name, contact information, and registration dates, are meticulously cataloged. The Whois Checker tool presents these details with just one click, offering immediate clarity. This is incredibly important for authenticating a website's legitimacy, as you can verify the entity behind a domain.<br><br>
+                For businesses looking to secure their brand online, the Whois Checker is an invaluable ally. By performing a simple Whois search, companies can discover whether the domain name they desire is available or not. If the domain is taken, the Whois database can be used to contact the current owner, perhaps to negotiate a purchase. For entrepreneurs brainstorming new domain names, the Whois Checker eliminates the guesswork, saving them valuable time and resources.<br><br>
+                Another significant advantage is the empowerment Whois Checker provides in safeguarding one's online presence. It helps guard against fraudulent activities such as domain hijacking, where attackers gain control of a domain and exploit it for malicious purposes. By regularly monitoring the Whois data, individuals and businesses can quickly respond to unauthorized changes and secure their digital assets.<br><br>
+                In the field of cybersecurity, the Whois Checker tool boosts research and investigative activities significantly. Professionals rely on accurate Whois data to trace the origins of cyber threats and attribute them to their sources. The tool also aids in resolving IP-related disputes and aids legal teams in collecting evidence for intellectual property cases.<br><br>
+                On a broader spectrum, the transparency facilitated by Whois Checker promotes trust within the internet community. It's the bridge between anonymity and accountability. Consumers can vet online retailers, digital markets can curb the sale of counterfeit goods, and the industry, on the whole, benefits from a framework of authenticity.<br><br>
+                In conclusion, the Whois Checker tool is more than just a utility; it's a necessity in today's interconnected world. It fosters transparency, security, and confidence in digital entrepreneurship and should be an integral part of your online toolkit. So whether you are protecting your brand, conducting research, or just satisfying curiosity, remember that the Whois Checker tool is your window into the world of domain data.</p>
+        </div>
+    </div>
+</div>
+{%endblock body%}
